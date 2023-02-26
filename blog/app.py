@@ -1,19 +1,24 @@
-from flask import Flask, request
+from flask import Flask, request, render_template
 from werkzeug.exceptions import BadRequest
+from blog.views.users import users_app
+from blog.views.articles import articles_app
+from blog.views.top import top_app
 
 
-app = Flask(__name__)
+def create_app() -> Flask:
+    app = Flask(__name__)
+    register_blueprints(app)
+    return app
 
 
-@app.route("/")
-def index():
-    return "Hello my blog!"
+def register_blueprints(app: Flask):
+    app.register_blueprint(users_app)
+    app.register_blueprint(articles_app)
+    app.register_blueprint(top_app)
 
+#@app.route("/")
+#def index():
+#    return render_template("index.html")
 
-@app.route("/user/")
-def read_user():
-    name = request.args.get("name")
-    surname = request.args.get("surname")
-    return f"User {name or '[no name]'} {surname or '[no surname]'}"
 
 

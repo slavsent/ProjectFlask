@@ -1,0 +1,29 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    {% block css %}
+      <link href="{{ url_for('static', filename='css/bootstrap.min.css') }}" rel="stylesheet">
+    {% endblock %}
+    <title>
+        {% block title %}
+            Base
+        {% endblock %}
+    </title>
+
+  </head>
+  <body>
+
+    {% include 'navbar.html' %}
+
+    <div class="container">
+        {% block body %}
+            Hello base!
+        {% endblock %}
+    </div>
+    {% block js %}
+        <script src="{{ url_for('static', filename='js/bootstrap.bundle.min.js') }}"></script>
+    {% endblock %}
+  </body>
+</html>
