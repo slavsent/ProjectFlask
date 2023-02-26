@@ -12,6 +12,15 @@
         <li class="nav-item">
           <a class="nav-link" href="{{ url_for('articles_app.list') }}">Articles</a>
         </li>
+        {% if current_user.is_authenticated %}
+          <li class="nav-item">
+            <a class="nav-link" href="{{ url_for('auth_app.logout') }}">Logout</a>
+          </li>
+        {% else %}
+          <li class="nav-item">
+            <a class="nav-link  {% if request.endpoint == 'login' -%}active{%- endif %}" href="{{ url_for('auth_app.login') }}" >Login</a>
+          </li>
+        {% endif %}
       </ul>
     </div>
   </div>
