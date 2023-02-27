@@ -18,8 +18,14 @@
     {% include 'navbar.html' %}
 
     <div class="container">
+
         {% block body %}
             Hello base!
+            {% if current_user.is_authenticated %}
+            {{ current_user.username }}
+            {% else %}
+                anon
+            {% endif %}
         {% endblock %}
     </div>
     {% block js %}
