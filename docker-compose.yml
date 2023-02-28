@@ -1,0 +1,44 @@
+version: '3.8'
+
+services:
+
+  db:
+    image: postgres:15.1-alpine
+    privileged: true
+    restart: always
+    expose:
+      - 5432
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: blogs
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: [ "CMD-SHELL", "pg_isready -q -d blogs -U postgres" ]
+      interval: 20s
+      timeout: 5s
+      retries: 5
+
+  app:
+    build:
+      dockerfile: ./Dockerfile
+      context: .
+    expose:
+      - 5000
+    ports:
+      - 5000:5000
+    environment:
+      DATABASE_URL: postgresql://postgres:postgres@database:5432/blog
+    entrypoint: 
+      sh -c "
+        python wsgi.py
+      "
+    depends_on:
+      db:
+        condition: service_healthy
+
+volumes:
+  pgdata:
