@@ -1,6 +1,7 @@
 from flask import Flask, request, render_template
 from werkzeug.exceptions import BadRequest
 from flask_migrate import Migrate
+from flask_wtf import CSRFProtect
 from blog.views.users import users_app
 from blog.views.articles import articles_app
 from blog.views.top import top_app
@@ -21,6 +22,7 @@ def create_app() -> Flask:
     register_blueprints(app)
 
     login_manager.init_app(app)
+    csrf = CSRFProtect()
     return app
 
 
