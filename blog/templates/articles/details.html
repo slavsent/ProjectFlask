@@ -1,14 +1,15 @@
 {% extends 'base.html' %}
 
 {% block title %}
-    Article #{{ article_id }}
-
-    <div>
-        <a href="{{ url_for('articles_app.list') }}">Back to article list</a>
-    </div>
-
+    Article #{{ article.id }}: {{ article.title }}
 {% endblock %}
 
 {% block body %}
-    <h1>Title:{{ article_name }}, Users:{{ article_user }}</h1>
+    <h1>Title: {{ article.title }}</h1>
+    <div>
+        <p>Text: {{ article.body }}</p>
+        <div>Published: {{ article.dt_created }}</div>
+        <div>Update: {{ article.dt_updated }}</div>
+        <div>by: {{ article.author.user.username }}</div>
+    </div>
 {% endblock %}

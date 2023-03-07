@@ -12,9 +12,12 @@
         <li class="nav-item">
           <a class="nav-link" href="{{ url_for('articles_app.list') }}">Articles</a>
         </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{{ url_for('authors_app.list') }}">Authors</a>
+        </li>
         {% if current_user.is_authenticated %}
           <li class="nav-item">
-            <a class="nav-link" href="{{ url_for('auth_app.logout') }}">Logout</a>
+            <a class="nav-link" href="{{ url_for('auth_app.logout') }}">Logout {{ current_user.username }}</a>
           </li>
         {% else %}
           <li class="nav-item">
