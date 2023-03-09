@@ -4,6 +4,7 @@ from flask_migrate import Migrate
 from flask_wtf import CSRFProtect
 from blog.views.users import users_app
 from blog.views.articles import articles_app
+from blog.views.authors import authors_app
 from blog.views.top import top_app
 from blog.models.database import db
 from blog.views.auth import auth_app, login_manager
@@ -31,3 +32,4 @@ def register_blueprints(app: Flask):
     app.register_blueprint(articles_app)
     app.register_blueprint(top_app)
     app.register_blueprint(auth_app)
+    app.register_blueprint(authors_app)
