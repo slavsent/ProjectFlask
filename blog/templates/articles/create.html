@@ -17,7 +17,7 @@
     <form method="post">
         {{ form.csrf_token }}
 
-        {% for field in ['title', 'body'] %}
+        {% for field in ['title', 'body', 'tags'] %}
             {{ render_field(form[field]) }}
         {% endfor %}
 

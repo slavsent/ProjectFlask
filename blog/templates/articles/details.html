@@ -6,10 +6,19 @@
 
 {% block body %}
     <h1>Title: {{ article.title }}</h1>
-    <div>
-        <p>Text: {{ article.body }}</p>
-        <div>Published: {{ article.dt_created }}</div>
-        <div>Update: {{ article.dt_updated }}</div>
-        <div>by: {{ article.author.user.username }}</div>
+    <div class="row">
+        <div class="col-6">
+            <p>Text: {{ article.body }}</p>
+            <div>Published: {{ article.dt_created }}</div>
+            <div>Update: {{ article.dt_updated }}</div>
+            <div>by: {{ article.author.user.username }}</div>
+        </div>
+        {% if article.tags %}
+            <div class="col-6">Tags:
+                {% for tag in article.tags %}
+                    <span class="badge bg-primary"> {{ tag.name }} </span>
+                {% endfor %}
+            </div>
+        {% endif %}
     </div>
 {% endblock %}
