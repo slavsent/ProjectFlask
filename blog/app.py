@@ -8,21 +8,23 @@ from blog.views.authors import authors_app
 from blog.views.top import top_app
 from blog.models.database import db
 from blog.views.auth import auth_app, login_manager
+from blog.admin.admin import admin
 
 
 def create_app() -> Flask:
     app = Flask(__name__)
 
     app.config.from_object('blog.config')
-    #app.config["SECRET_KEY"] = '7r3%huhsrm$p71_@cq(4bwhxfc90pf30e+s@tq!i40*psz^7k8'
-    #app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
-    #app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///db.sqlite"
+    # app.config["SECRET_KEY"] = '7r3%huhsrm$p71_@cq(4bwhxfc90pf30e+s@tq!i40*psz^7k8'
+    # app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
+    # app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///db.sqlite"
     db.init_app(app)
     migrate = Migrate(app, db, compare_type=True)
 
     register_blueprints(app)
 
     login_manager.init_app(app)
+    admin.init_app(app)
     csrf = CSRFProtect()
     return app
 
