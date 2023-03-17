@@ -19,8 +19,8 @@ depends_on = None
 
 def upgrade():
     from blog.models import User
-    admin = User(username="admin1", first_name='admin', is_staff=True, email='admin1@mail.ru',
-                 password=generate_password_hash('space'))
+    admin = User(username="admin1", first_name='admin1', last_name='', user_img='', is_staff=True,
+                 email='admin1@mail.ru', password=generate_password_hash('space'))
     db.session.add(admin)
     db.session.commit()
 
