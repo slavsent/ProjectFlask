@@ -9,6 +9,7 @@ from blog.views.top import top_app
 from blog.models.database import db
 from blog.views.auth import auth_app, login_manager
 from blog.admin.admin import admin
+from blog.api import init_api
 
 
 def create_app() -> Flask:
@@ -26,6 +27,8 @@ def create_app() -> Flask:
     login_manager.init_app(app)
     admin.init_app(app)
     csrf = CSRFProtect()
+    api = init_api(app)
+
     return app
 
 
