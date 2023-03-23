@@ -1,5 +1,7 @@
+import requests
 from flask import Blueprint, render_template, request, current_app, redirect, url_for
 # from blog.views.users import USERS
+from typing import Dict
 from sqlalchemy.orm import joinedload
 from werkzeug.exceptions import NotFound
 from flask_login import login_required, current_user
@@ -31,7 +33,9 @@ articles_app = Blueprint("articles_app", __name__, url_prefix='/articles', stati
 @articles_app.route("/", endpoint="list")
 def articles_list():
     articles = Article.query.all()
-    return render_template("articles/list.html", articles=articles)
+    # call RPC method
+    count_articles: Dict = requests.get('http://127.0.0.1:5000/api/articles/event_get_count/').json()
+    return render_template("articles/list.html", articles=articles, count_articles=count_articles['count'])
 
 
 @articles_app.route("/<int:article_id>/", endpoint="details")
