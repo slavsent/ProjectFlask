@@ -6,6 +6,8 @@ from sqlalchemy.orm import joinedload
 from werkzeug.exceptions import NotFound
 from flask_login import login_required, current_user
 from sqlalchemy.exc import IntegrityError
+
+from blog.config import API_URL
 from blog.models.database import db
 from blog.models import Author, Article, Tag
 from blog.forms.article import CreateArticleForm
@@ -34,7 +36,7 @@ articles_app = Blueprint("articles_app", __name__, url_prefix='/articles', stati
 def articles_list():
     articles = Article.query.all()
     # call RPC method
-    count_articles: Dict = requests.get('http://127.0.0.1:5000/api/articles/event_get_count/').json()
+    count_articles: Dict = requests.get(f'{API_URL}/api/articles/event_get_count/').json()
     return render_template("articles/list.html", articles=articles, count_articles=count_articles['count'])
 
 
